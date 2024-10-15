@@ -14,10 +14,9 @@ spring:
     init:
       mode: never
   upload:
-    location: C:\\Users\\WD\\Desktop\\costcook-image
+    location: C:\\Users\\rnlay\\Desktop\\costcook-image
 jwt:
   issuer: costcook
   secret_key: secretkeysecretkeysecretkeysecretkeysecretkey
   access_duration: 86400000
   refresh_duration: 86400000
-

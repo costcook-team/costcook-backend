@@ -2,6 +2,7 @@ package com.costcook.entity;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -38,16 +39,17 @@ public class Recipe {
 	
 	// 만개 레시피 제공 데이터 고유번호
 	@Column
-	private int rcpSno;
+	@ColumnDefault("0")
+	private Integer rcpSno;
 	
 	// 레시피 이름
 	@Column(nullable = false)
 	private String title;
 	
-//	// 레시피 이미지
-//	@JoinColumn(name = "image_id", nullable = true)
-//	@ManyToOne
-//	private ImageFile image;
+	// 레시피 이미지
+	@JoinColumn(name = "image_id", nullable = true)
+	@ManyToOne
+	private ImageFile image;
 	
 	// 레시피 설명 (null 허용)
 	@Column(nullable = true)
@@ -55,11 +57,13 @@ public class Recipe {
 	
 	// 몇인분 (디폴트 1)
 	@Column
-	private int servings;
+	@ColumnDefault("1")
+	private Integer servings;
 	
 	// 가격
 	@Column
-	private int price;
+	@ColumnDefault("0")
+	private Integer price;
 	
 	// 등록일
 	@CreatedDate
@@ -73,19 +77,23 @@ public class Recipe {
 	
 	// 조회수 (디폴트 0)
 	@Column
-	private int viewCount;
+	@ColumnDefault("0")
+	private Integer viewCount;
 	
 	// 즐겨찾기 수 (디폴트 0)
 	@Column
-	private int bookmarkCount;
+	@ColumnDefault("0")
+	private Integer bookmarkCount;
 	
 	// 댓글 수 (디폴트 0)
 	@Column
-	private int commentCount;
+	@ColumnDefault("0")
+	private Integer commentCount;
 	
 	// 평점 (디폴트 0.0)
 	@Column
-	private double avgRatings;
+	@ColumnDefault("0")
+	private Double avgRatings;
 	
 	
 
