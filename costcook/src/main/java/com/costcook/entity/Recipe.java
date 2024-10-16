@@ -39,8 +39,8 @@ public class Recipe {
 	
 	// 만개 레시피 제공 데이터 고유번호
 	@Column
-	@ColumnDefault("0")
-	private Integer rcpSno;
+	@Builder.Default()
+	private Integer rcpSno = 0;
 	
 	// 레시피 이름
 	@Column(nullable = false)
@@ -57,13 +57,13 @@ public class Recipe {
 	
 	// 몇인분 (디폴트 1)
 	@Column
-	@ColumnDefault("1")
-	private Integer servings;
+	@Builder.Default()
+	private Integer servings = 1;
 	
 	// 가격
 	@Column
-	@ColumnDefault("0")
-	private Integer price;
+	@Builder.Default()
+	private Integer price = 0;
 	
 	// 등록일
 	@CreatedDate
@@ -77,23 +77,23 @@ public class Recipe {
 	
 	// 조회수 (디폴트 0)
 	@Column
-	@ColumnDefault("0")
-	private Integer viewCount;
+	@Builder.Default()
+	private Integer viewCount = 0;
 	
 	// 즐겨찾기 수 (디폴트 0)
 	@Column
-	@ColumnDefault("0")
-	private Integer bookmarkCount;
+	@Builder.Default()
+	private Integer bookmarkCount = 0;
 	
 	// 댓글 수 (디폴트 0)
 	@Column
-	@ColumnDefault("0")
-	private Integer commentCount;
+	@Builder.Default()
+	private Integer commentCount = 0;
 	
 	// 평점 (디폴트 0.0)
 	@Column
-	@ColumnDefault("0")
-	private Double avgRatings;
+	@Builder.Default()
+	private Double avgRatings = 0.0;
 	
 	
 

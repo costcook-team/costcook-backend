@@ -14,7 +14,7 @@ spring:
     init:
       mode: never
   upload:
-    location: C:\\Users\\rnlay\\Desktop\\costcook-image
+    location: C:\\Users\\WD\\Desktop\\costcook-image
 jwt:
   issuer: costcook
   secret_key: secretkeysecretkeysecretkeysecretkeysecretkey

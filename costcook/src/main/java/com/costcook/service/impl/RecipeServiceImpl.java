@@ -66,6 +66,39 @@ public class RecipeServiceImpl implements RecipeService {
 		return productResponse;
 	}
 
+
+	// 레시피 수정
+	@Override
+//	public RecipeResponse updateRecipe(RecipeRequest recipeRequest, MultipartFile file, User loginedUser) {
+	public RecipeResponse updateRecipe(RecipeRequest recipeRequest, MultipartFile file) {
+		// 수정 전 정보
+		Recipe recipe = recipeRepository.findById(recipeRequest.getId())
+				.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다."));
+//		// 관리자 여부 확인
+//		if (!loginedUser.getRole().name().equals("ROLE_ADMIN")) {
+//			throw new IllegalArgumentException("관리자만 수정할 수 있습니다.");
+//		}
+		
+		// 이미지 수정
+		ImageFile savedImage = imageFileService.saveImage(file);
+		
+		// 수정하지 않을 경우 그대로 놔두기(null)
+		if (savedImage != null) recipe.setImage(savedImage);
+		if (recipeRequest.getTitle() != null) recipe.setTitle(recipeRequest.getTitle());
+		if (recipeRequest.getDescription() != null) recipe.setDescription(recipeRequest.getDescription());
+		if (recipeRequest.getServings() != recipe.getServings()) recipe.setServings(recipeRequest.getServings());
+		if (recipeRequest.getPrice() != recipe.getPrice()) recipe.setPrice(recipeRequest.getPrice());
+		if (recipeRequest.getViewCount() != recipe.getViewCount()) recipe.setViewCount(recipeRequest.getViewCount());
+		if (recipeRequest.getBookmarkCount() != recipe.getBookmarkCount()) recipe.setBookmarkCount(recipeRequest.getBookmarkCount());
+		if (recipeRequest.getCommentCount() != recipe.getCommentCount()) recipe.setCommentCount(recipeRequest.getCommentCount());
+		if (recipeRequest.getAvgRatings() != recipe.getAvgRatings()) recipe.setAvgRatings(recipeRequest.getAvgRatings());
+		
+		Recipe updatedRecipe = recipeRepository.save(recipe);
+		RecipeResponse result = RecipeResponse.toDTO(updatedRecipe);
+		
+		return result;
+	}
+
 	
 
 }

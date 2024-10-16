@@ -15,4 +15,6 @@ public interface RecipeService {
 
 	RecipeResponse insertRecipe(RecipeRequest recipeRequest, MultipartFile file);
 
+	RecipeResponse updateRecipe(RecipeRequest recipeRequest, MultipartFile file);
+
 }

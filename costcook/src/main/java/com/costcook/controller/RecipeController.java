@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/recipe")
+@RequestMapping("/api/recipe/")
 public class RecipeController {
 	
 	private final RecipeService recipeService;
@@ -64,6 +65,23 @@ public class RecipeController {
 		}
 		return ResponseEntity.ok(result);
 	}
+	
+	
+	// 레시피 수정
+	@PatchMapping("")
+	public ResponseEntity<RecipeResponse> modifyRecipe(RecipeRequest recipeRequest, @RequestParam(name = "image", required = false) MultipartFile file) {
+//		// 토큰을 통해 로그인 유저 정보를 가져옴
+//		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+//		RecipeResponse updatedRecipe = recipeService.updateRecipe(RecipeRequest, file, user);
+		RecipeResponse updatedRecipe = recipeService.updateRecipe(recipeRequest, file);
+		
+		return ResponseEntity.ok(updatedRecipe);
+	}
+	
+	
+	// 레시피 삭제
+	
 	
 	
 
