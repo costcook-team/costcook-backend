@@ -1,6 +1,5 @@
 package com.costcook.controller;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +69,14 @@ public class RecipeController {
 	}
 	
 	
+	// 레시피 상세보기
+	@GetMapping("/{id}")
+	public ResponseEntity<RecipeResponse> getRecipe(@PathVariable("id") Long id) {
+		RecipeResponse recipeResponse = recipeService.getRecipeById(id);
+		return ResponseEntity.ok(recipeResponse);
+	}
+	
+	
 	// 레시피 수정
 	@PatchMapping("")
 	public ResponseEntity<RecipeResponse> modifyRecipe(RecipeRequest recipeRequest, @RequestParam(name = "image", required = false) MultipartFile file) {
@@ -85,7 +92,7 @@ public class RecipeController {
 	
 	// 레시피 삭제
 	@DeleteMapping("/{id}")
-	public ResponseEntity<RecipeResponse> removeProduct(@PathVariable("id") Long id) {
+	public ResponseEntity<RecipeResponse> removeRecipe(@PathVariable("id") Long id) {
 //		// 로그인 유저(토큰을 통해 유저 정보 가져옴)
 //		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //		RecipeResponse deletedRecipe = recipeService.deleteProduct(id, user);
