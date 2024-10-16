@@ -17,4 +17,6 @@ public interface RecipeService {
 
 	RecipeResponse updateRecipe(RecipeRequest recipeRequest, MultipartFile file);
 
+	RecipeResponse deleteRecipe(Long id);
+
 }

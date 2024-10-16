@@ -99,6 +99,23 @@ public class RecipeServiceImpl implements RecipeService {
 		return result;
 	}
 
+
+	// 레시피 삭제
+	@Override
+//	public RecipeResponse deleteRecipe(Long id, User loginedUser) {
+	public RecipeResponse deleteRecipe(Long id) {
+		// 상품 원본 정보 가져오기
+		Recipe recipe = recipeRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 레시피입니다."));
+//		// 관리자만 삭제 가능하게
+//		if (!loginedUser.getRole().name().equals("ROLE_ADMIN")) {
+//			throw new IllegalArgumentException("관리자만 삭제할 수 있습니다.");
+//		}
+		recipeRepository.delete(recipe);
+		
+		return RecipeResponse.toDTO(recipe);
+	}
+
 	
 
 }
