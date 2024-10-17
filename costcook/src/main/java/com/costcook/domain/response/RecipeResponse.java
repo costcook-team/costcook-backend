@@ -13,10 +13,10 @@ import lombok.Data;
 public class RecipeResponse {
 
 	private Long id, categoryId;
-	private Integer rcpSno;
+	private int rcpSno;
 	private String title, description, createdAt, updatedAt;
-	private Integer servings, price, viewCount, bookmarkCount, commentCount;
-	private Double avgRatings;
+	private int servings, price, viewCount, bookmarkCount, commentCount;
+	private double avgRatings;
 	
 //	private UserResponse author;
 	private FileDTO image;
@@ -29,8 +29,10 @@ public class RecipeResponse {
 				.rcpSno(recipe.getRcpSno())
 				.title(recipe.getTitle())
 				.description(recipe.getDescription())
-				.createdAt(recipe.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")))
-				.createdAt(recipe.getUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")))
+//				.createdAt(recipe.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")))
+				.createdAt(recipe.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")))
+//				.createdAt(recipe.getUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")))
+				.createdAt(recipe.getUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")))
 				.servings(recipe.getServings())
 				.price(recipe.getPrice())
 				.viewCount(recipe.getViewCount())

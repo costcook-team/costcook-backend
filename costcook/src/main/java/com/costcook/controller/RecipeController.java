@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.costcook.domain.request.RecipeRequest;
 import com.costcook.domain.response.RecipeResponse;
+import com.costcook.entity.Recipe;
 import com.costcook.service.ImageFileService;
 import com.costcook.service.RecipeService;
 
@@ -29,13 +34,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/recipe/")
+@RequestMapping("/api/recipes")
 public class RecipeController {
 	
 	private final RecipeService recipeService;
-	private final ImageFileService imageFileService;
-	
-	
 	// application.yml의 location 정보 가져오기
 	@Value("${spring.upload.location}")
 	private String uploadPath;
@@ -54,18 +56,34 @@ public class RecipeController {
 	}
 	
 	
-	// 레시피 전체 목록 조회
-	@GetMapping("")
-	public ResponseEntity<List<RecipeResponse>> getAllRecipe(@RequestParam(name = "id", required = false) Long id) {
-		List<RecipeResponse> result = new ArrayList<>();
-		// 레시피 ID가 없으면 모든 레시피 조회, 있으면 리스트에 추가
-		if (id == null) {
-			result = recipeService.getAllRecipe();
-		} else {
-			RecipeResponse RecipeResponse = recipeService.getRecipeById(id);
-			result.add(RecipeResponse);
+	// 레시피 전체 목록 조회 (페이지네이션)
+	@GetMapping(value = {"", "/"})
+	public ResponseEntity<Page<RecipeResponse>> getAllRecipe(
+			@RequestParam(name = "id", required = false) Long id,
+			@RequestParam(name = "page", defaultValue = "0") int page, 
+			@RequestParam(name = "size", defaultValue = "9") int size, 
+			@RequestParam(name = "sort", defaultValue = "createdAt") String sort,
+			@RequestParam(name = "order", defaultValue = "desc") String order
+			) {
+		
+		// 정렬 방향
+		Sort.Direction direction = order.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+		// 정렬 기준
+//		Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sort));
+		Pageable pageable;
+		// 정렬 기준에 따른 Pageable 생성
+		if (sort.equals("avgRatings")) {
+			pageable = PageRequest.of(page, size, Sort.by(direction, "avgRatings")); 
+		} else if (sort.equals("viewCount")) {
+			pageable = PageRequest.of(page, size, Sort.by(direction, "viewCount"));
+		} else { // 기본 정렬
+			pageable = PageRequest.of(page, size, Sort.by(direction, sort));
 		}
-		return ResponseEntity.ok(result);
+			
+		// 레시피 목록 가져오기
+		Page<RecipeResponse> recipes = recipeService.getAllRecipes(pageable, id);
+		
+		return ResponseEntity.ok(recipes);
 	}
 	
 	
@@ -104,6 +122,12 @@ public class RecipeController {
 	}
 		
 
+	
+	
+	
+	
+	
+	
 	
 	
 	

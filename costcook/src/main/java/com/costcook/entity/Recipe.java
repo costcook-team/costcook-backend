@@ -15,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "recipes")
 public class Recipe {
 	
 	@Id
@@ -38,9 +40,9 @@ public class Recipe {
 	private Long categoryId;
 	
 	// 만개 레시피 제공 데이터 고유번호
-	@Column
+	@Column(nullable = false)
 	@Builder.Default()
-	private Integer rcpSno = 0;
+	private int rcpSno = 0;
 	
 	// 레시피 이름
 	@Column(nullable = false)
@@ -56,14 +58,14 @@ public class Recipe {
 	private String description;
 	
 	// 몇인분 (디폴트 1)
-	@Column
+	@Column(nullable = false)
 	@Builder.Default()
-	private Integer servings = 1;
+	private int servings = 1;
 	
 	// 가격
-	@Column
+	@Column(nullable = false)
 	@Builder.Default()
-	private Integer price = 0;
+	private int price = 0;
 	
 	// 등록일
 	@CreatedDate
@@ -76,24 +78,24 @@ public class Recipe {
 	private LocalDateTime updatedAt;
 	
 	// 조회수 (디폴트 0)
-	@Column
+	@Column(nullable = false)
 	@Builder.Default()
-	private Integer viewCount = 0;
+	private int viewCount = 0;
 	
 	// 즐겨찾기 수 (디폴트 0)
-	@Column
+	@Column(nullable = false)
 	@Builder.Default()
-	private Integer bookmarkCount = 0;
+	private int bookmarkCount = 0;
 	
 	// 댓글 수 (디폴트 0)
-	@Column
+	@Column(nullable = false)
 	@Builder.Default()
-	private Integer commentCount = 0;
+	private int commentCount = 0;
 	
 	// 평점 (디폴트 0.0)
-	@Column
+	@Column(nullable = false)
 	@Builder.Default()
-	private Double avgRatings = 0.0;
+	private double avgRatings = 0.0;
 	
 	
 

@@ -75,7 +75,7 @@ public class WebSecurityConfig {
 			// 누구나
 			auth.requestMatchers(
 					new AntPathRequestMatcher("/api/**"),
-					new AntPathRequestMatcher("/api/recipe/**"),
+					new AntPathRequestMatcher("/api/recipes/**"),
 					new AntPathRequestMatcher("/img/**")
 //					new AntPathRequestMatcher("/api/oauth/**"),				
 //					new AntPathRequestMatcher("/api/userjoin"),
@@ -84,9 +84,9 @@ public class WebSecurityConfig {
 			).permitAll()
 			// 인증 필요
 //			.requestMatchers(
-//					new AntPathRequestMatcher("/api/recipe", "POST"),
-//					new AntPathRequestMatcher("/api/recipe/**", "DELETE"),
-//					new AntPathRequestMatcher("/api/recipe/**", "PATCH")
+//					new AntPathRequestMatcher("/api/recipes", "POST"),
+//					new AntPathRequestMatcher("/api/recipes/**", "DELETE"),
+//					new AntPathRequestMatcher("/api/recipes/**", "PATCH")
 //					).hasRole("ADMIN")
 //			.anyRequest().authenticated()
 		);
