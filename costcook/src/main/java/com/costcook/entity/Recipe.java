@@ -2,6 +2,7 @@ package com.costcook.entity;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -12,6 +13,9 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +27,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "recipes")
 public class Recipe {
 	
 	@Id
@@ -35,29 +40,32 @@ public class Recipe {
 	private Long categoryId;
 	
 	// 만개 레시피 제공 데이터 고유번호
-	@Column
-	private int rcpSno;
+	@Column(nullable = false)
+	@Builder.Default()
+	private int rcpSno = 0;
 	
 	// 레시피 이름
 	@Column(nullable = false)
 	private String title;
 	
-//	// 레시피 이미지
-//	@JoinColumn(name = "image_id", nullable = true)
-//	@ManyToOne
-//	private ImageFile image;
+	// 레시피 이미지
+	@JoinColumn(name = "image_id", nullable = true)
+	@ManyToOne
+	private ImageFile image;
 	
 	// 레시피 설명 (null 허용)
 	@Column(nullable = true)
 	private String description;
 	
 	// 몇인분 (디폴트 1)
-	@Column
-	private int servings;
+	@Column(nullable = false)
+	@Builder.Default()
+	private int servings = 1;
 	
 	// 가격
-	@Column
-	private int price;
+	@Column(nullable = false)
+	@Builder.Default()
+	private int price = 0;
 	
 	// 등록일
 	@CreatedDate
@@ -70,20 +78,24 @@ public class Recipe {
 	private LocalDateTime updatedAt;
 	
 	// 조회수 (디폴트 0)
-	@Column
-	private int viewCount;
+	@Column(nullable = false)
+	@Builder.Default()
+	private int viewCount = 0;
 	
 	// 즐겨찾기 수 (디폴트 0)
-	@Column
-	private int bookmarkCount;
+	@Column(nullable = false)
+	@Builder.Default()
+	private int bookmarkCount = 0;
 	
 	// 댓글 수 (디폴트 0)
-	@Column
-	private int commentCount;
+	@Column(nullable = false)
+	@Builder.Default()
+	private int commentCount = 0;
 	
 	// 평점 (디폴트 0.0)
-	@Column
-	private double avgRatings;
+	@Column(nullable = false)
+	@Builder.Default()
+	private double avgRatings = 0.0;
 	
 	
 
