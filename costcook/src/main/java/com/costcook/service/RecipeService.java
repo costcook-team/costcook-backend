@@ -1,10 +1,7 @@
 package com.costcook.service;
 
-
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.costcook.domain.request.RecipeRequest;
@@ -12,15 +9,21 @@ import com.costcook.domain.response.RecipeResponse;
 
 public interface RecipeService {
 
-	Page<RecipeResponse> getAllRecipes(Pageable pageable, Long id);
-
+	List<RecipeResponse> getRecipes(int page, int size, String sort, String order);
+	
+	long getTotalRecipes();
+	
+	RecipeResponse insertRecipe(RecipeRequest recipeRequest, MultipartFile file);
+	
 	RecipeResponse getRecipeById(Long id);
 
-	RecipeResponse insertRecipe(RecipeRequest recipeRequest, MultipartFile file);
+	RecipeResponse updateRecipe(RecipeRequest recipeRequest, Long id, MultipartFile file);
 
-	RecipeResponse updateRecipe(RecipeRequest recipeRequest, MultipartFile file);
+	List<RecipeResponse> getAdminRecipes(int page, int limit);
 
-	RecipeResponse deleteRecipe(Long id);
+	// 레시피 삭제 미구현
+
+
 
 
 }

@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "recipes")
-public class Recipe {
+public class RecipeItem {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,9 +49,8 @@ public class Recipe {
 	private String title;
 	
 	// 레시피 이미지
-	@JoinColumn(name = "image_id", nullable = true)
-	@ManyToOne
-	private ImageFile image;
+	@Column(nullable = true)
+	private String thumbnailUrl;
 	
 	// 레시피 설명 (null 허용)
 	@Column(nullable = true)
@@ -62,7 +61,7 @@ public class Recipe {
 	@Builder.Default()
 	private int servings = 1;
 	
-	// 가격
+	// 가격(1인분 기준)
 	@Column(nullable = false)
 	@Builder.Default()
 	private int price = 0;

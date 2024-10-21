@@ -31,8 +31,20 @@ public class WebSecurityConfig {
 			// 특정 URL 경로에 대해서는 인증 없이 접근 가능
 			auth.requestMatchers(
 				new AntPathRequestMatcher("/api/oauth/**"),
-				new AntPathRequestMatcher("/api/auth/**")
+				new AntPathRequestMatcher("/api/auth/**"),
+				new AntPathRequestMatcher("/api/recipes/**", "GET"),
+				new AntPathRequestMatcher("/img/**")
+				
+//				// 관리자 테스트용
+//				new AntPathRequestMatcher("/api/admin/recipes/**")
+
+
 			).permitAll()
+			// 관리자 인증 필요
+//			.requestMatchers(
+//					new AntPathRequestMatcher("/api/admin/recipes/**") // 관리자용 레시피 조회, 등록, 수정
+//					
+//					).hasRole("ADMIN")
 			// 그 밖의 다른 요청들은 인증을 통과한(로그인한) 사용자라면 모두 접근할 수 있도록 한다.
 			.anyRequest().authenticated()
 		);

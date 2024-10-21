@@ -15,6 +15,17 @@ spring:
       mode: never
   upload:
     location: C:\\Users\\WD\\Desktop\\costcook-image
+  mail:
+    host: smtp.gmail.com  # Google SMTP 서버 주소
+    port: 587  # SMTP 포트
+    username: pbc9236@gmail.com  # 발송자 이메일
+    password: scjtbmripfszsirb  # 발송자 이메일 비밀번호
+    properties:
+        mail:
+            smtp:
+                auth: true
+                starttls:
+                enable: true
 jwt:
   issuer: costcook
   secret_key: secretkeysecretkeysecretkeysecretkeysecretkey

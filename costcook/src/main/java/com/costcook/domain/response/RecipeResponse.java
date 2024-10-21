@@ -1,9 +1,7 @@
 package com.costcook.domain.response;
-
 import java.time.format.DateTimeFormatter;
 
-import com.costcook.domain.dto.FileDTO;
-import com.costcook.entity.Recipe;
+import com.costcook.entity.RecipeItem;
 
 import lombok.Builder;
 import lombok.Data;
@@ -14,15 +12,12 @@ public class RecipeResponse {
 
 	private Long id, categoryId;
 	private int rcpSno;
-	private String title, description, createdAt, updatedAt;
+	private String title, description, thumbnailUrl, createdAt, updatedAt;
 	private int servings, price, viewCount, bookmarkCount, commentCount;
 	private double avgRatings;
 	
-//	private UserResponse author;
-	private FileDTO image;
-	
 	// Recipe -> response 변환
-	public static RecipeResponse toDTO(Recipe recipe) {
+	public static RecipeResponse toDTO(RecipeItem recipe) {
 		return RecipeResponse.builder()
 				.id(recipe.getId())
 				.categoryId(recipe.getCategoryId())
@@ -39,10 +34,8 @@ public class RecipeResponse {
 				.bookmarkCount(recipe.getBookmarkCount())
 				.commentCount(recipe.getCommentCount())
 				.avgRatings(recipe.getAvgRatings())
-				
-//				.author(UserResponse.toDTO(recipe.getAuthor()))
-				.image(FileDTO.toDTO(recipe.getImage()))
-				
+				.thumbnailUrl(recipe.getThumbnailUrl())
+	
 				.build();
 	}
 	
