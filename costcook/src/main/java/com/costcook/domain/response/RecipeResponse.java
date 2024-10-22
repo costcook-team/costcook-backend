@@ -13,7 +13,7 @@ public class RecipeResponse {
 
 	private Long id, categoryId;
 	private int rcpSno;
-	private String title, description, createdAt, updatedAt;
+	private String title, description, thumbnailUrl, createdAt, updatedAt;
 	private int servings, price, viewCount, bookmarkCount, commentCount;
 	private double avgRatings;
 
@@ -33,6 +33,7 @@ public class RecipeResponse {
 				.bookmarkCount(recipe.getBookmarkCount())
 				.commentCount(recipe.getCommentCount())
 				.avgRatings(recipe.getAvgRatings())
+				.thumbnailUrl(recipe.getThumbnailUrl())
 				.build();
 	}
 	
