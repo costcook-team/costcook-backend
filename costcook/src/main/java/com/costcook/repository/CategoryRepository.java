@@ -8,4 +8,7 @@ import com.costcook.entity.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
+    // ID로 카테고리를 조회하는 메소드
+    Optional<Category> findById(Long id);
+
 }
