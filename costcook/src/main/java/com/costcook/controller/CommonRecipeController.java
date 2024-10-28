@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.costcook.domain.response.IngredientResponse;
-import com.costcook.domain.response.RecipeDetailResponse;
 import com.costcook.domain.response.RecipeListResponse;
 import com.costcook.domain.response.RecipeResponse;
+import com.costcook.domain.response.ReviewResponse;
+import com.costcook.service.RecipeService;
+import com.costcook.service.ReviewService;
+import com.costcook.domain.response.IngredientResponse;
+import com.costcook.domain.response.RecipeDetailResponse;
 import com.costcook.repository.RecipeIngredientRepository;
 import com.costcook.service.RecipeIngredientService;
-import com.costcook.service.RecipeService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,8 @@ import lombok.extern.slf4j.Slf4j;
 public class CommonRecipeController {
 	
 	private final RecipeService recipeService;
+	private final ReviewService reviewService;
+	
 	private final RecipeIngredientService recipeIngredientService;
 	private final RecipeIngredientRepository recipeIngredientRepository;
 
@@ -44,6 +48,7 @@ public class CommonRecipeController {
 		
 		// 레시피 목록 가져오기
 		List<RecipeResponse> recipes = recipeService.getRecipes(page, size, sort, order);
+		
 		// 총 레시피 개수 : 불러올 데이터가 없는 데 스크롤이 가능하면 계속해서 데이터를 불러옴 => 마지막 페이지를 설정해서 무한 로딩 방지
 		long totalRecipes = recipeService.getTotalRecipes();
 		// 총 페이지 수
@@ -60,6 +65,18 @@ public class CommonRecipeController {
 		return ResponseEntity.ok(response);
 	}
 	
+	// 레시피 리뷰 전체보기
+	@GetMapping("/{recipeId}/reviews")
+	public ResponseEntity<List<ReviewResponse>> getRecipeReviews(@PathVariable("recipeId") Long id){
+		 List<ReviewResponse> reviewList = reviewService.getReviewList(id);
+		 
+		 if(reviewList.isEmpty()) {
+			 return ResponseEntity.noContent().build();
+		 }
+		 return ResponseEntity.ok(reviewList);
+		
+	
+	}
 	// 레시피별 상세보기
 	@GetMapping("/{recipeId}")
 	public ResponseEntity<RecipeDetailResponse> getIngredientsByRecipeId(@PathVariable("recipeId") Long id) {
