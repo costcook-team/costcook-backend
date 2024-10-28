@@ -96,15 +96,6 @@ public class Recipe {
 //	@Column(nullable = false)
 //	@Builder.Default()
 //	private double avgRatings = 0.0;
-	
-//	// 가상 컬럼 (DB에 저장되지 않음)
-//	// 레시피 총 가격 계산
-//	@Transient
-//	public int getTotalPrice(List<RecipeIngredient> recipeIngredients) {
-//		return recipeIngredients.stream()
-//				.filter(recipeIngredient -> recipeIngredient.getRecipe() != null && recipeIngredient.getRecipe().getId().equals(this.id)) // 레시피 ID로 필터링
-//				.mapToInt(RecipeIngredient::getPrice)
-//				.sum();
-//	}
+
 
 }
